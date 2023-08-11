@@ -1,39 +1,30 @@
 ﻿namespace Logical_Programming
 {
-    internal class PerfectNumber
+    internal class PrimeNumber
     {
 
-        public class PerfectNumberExample
+        public class PrimeNumberExample
         {
-            public static void Main()
+
+            public static void Main(string[] args)
             {
-                int n, i, sum;
-
-                Console.Write("\n\n");
-                Console.Write("Check whether a given number is perfect number or not:\n");
-                Console.Write("--------------------------------------------------------");
-                Console.Write("\n\n");
-
-                Console.Write("Input the  number : ");
-                n = Convert.ToInt32(Console.ReadLine());
-                sum = 0;
-                Console.Write("The positive divisor  : ");
-                for (i = 1; i < n; i++)
+                int n, i, m = 0, flag = 0;
+                Console.Write("Enter the Number to check Prime: ");
+                n = int.Parse(Console.ReadLine());
+                m = n / 2;
+                for (i = 2; i <= m; i++)
                 {
                     if (n % i == 0)
                     {
-                        sum = sum + i;
-                        Console.Write("{0}  ", i);
+                        Console.Write("Number is not Prime.");
+                        flag = 1;
+                        break;
                     }
                 }
-                Console.Write("\nThe sum of the divisor is : {0}", sum);
-                if (sum == n)
-                    Console.Write("\nSo, the number is perfect.");
-                else
-                    Console.Write("\nSo, the number is not perfect.");
-                Console.Write("\n");
+                if (flag == 0)
+                    Console.Write("Number is Prime.");
             }
+
         }
-   
-    }
-}
+    }  
+}  
