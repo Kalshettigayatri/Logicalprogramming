@@ -1,52 +1,87 @@
 ﻿namespace Logical_Programming
 {
-    internal class CouponNumber
+    internal class StopwatchProgram
     {
 
-        public class CouponNumberExample
+        public class StopwatchProgram
         {
+            private DateTime startTime;
+            private DateTime endTime;
+            private bool isRunning;
 
-            private static int GenerateRandomNumber(int min, int max)
+            public void Start()
             {
-                Random random = new Random();
-                return random.Next(min, max);
+                if (!isRunning)
+                {
+                    startTime = DateTime.Now;
+                    isRunning = true;
+                    Console.WriteLine("Stopwatch started.");
+                }
+                else
+                {
+                    Console.WriteLine("Stopwatch is already running.");
+                }
             }
 
-            // Function to generate distinct coupon numbers
-            public static int GenerateDistinctCouponNumbers(int n)
+            public void Stop()
             {
-                HashSet<int> distinctCoupons = new HashSet<int>();
-                int totalRandomNumbers = 0;
-
-                while (distinctCoupons.Count < n)
+                if (isRunning)
                 {
-                    int randomNumber = GenerateRandomNumber(1, n + 1); // Assuming coupon numbers start from 1
-                    totalRandomNumbers++;
-
-                    if (!distinctCoupons.Contains(randomNumber))
-                    {
-                        distinctCoupons.Add(randomNumber);
-                    }
+                    endTime = DateTime.Now;
+                    isRunning = false;
+                    Console.WriteLine("Stopwatch stopped.");
                 }
+                else
+                {
+                    Console.WriteLine("Stopwatch is not running.");
+                }
+            }
 
-                return totalRandomNumbers;
+            public TimeSpan GetElapsedTime()
+            {
+                if (isRunning)
+                {
+                    return DateTime.Now - startTime;
+                }
+                else
+                {
+                    return endTime - startTime;
+                }
             }
 
             public static void Main(string[] args)
             {
-                Console.Write("Enter the number of distinct coupon numbers: ");
-                int n = int.Parse(Console.ReadLine());
+                StopwatchProgram stopwatch = new StopwatchProgram();
 
-                int totalRandomNumbers = GenerateDistinctCouponNumbers(n);
-                Console.WriteLine($"Total random numbers needed to have all distinct coupon numbers: {totalRandomNumbers}");
+                Console.WriteLine("Press 's' to start the stopwatch, 'e' to end it, and 'q' to quit.");
+
+                while (true)
+                {
+                    char input = Console.ReadKey().KeyChar;
+                    Console.WriteLine();
+
+                    if (input == 's')
+                    {
+                        stopwatch.Start();
+                    }
+                    else if (input == 'e')
+                    {
+                        stopwatch.Stop();
+                        TimeSpan elapsed = stopwatch.GetElapsedTime();
+                        Console.WriteLine($"Elapsed time: {elapsed.TotalSeconds} seconds");
+                    }
+                    else if (input == 'q')
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input.");
+                    }
+                }
             }
         }
-
-
-
-
-
-
     }
-    }  
- 
+}
+
+
